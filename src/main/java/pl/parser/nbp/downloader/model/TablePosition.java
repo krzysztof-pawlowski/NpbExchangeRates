@@ -1,6 +1,9 @@
 package pl.parser.nbp.downloader.model;
 
+import pl.parser.nbp.utils.jaxb.DoubleAdapter;
+
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * Created by Krzysztof Pawlowski on 29/05/16.
@@ -10,8 +13,8 @@ public class TablePosition {
     private String currencyName;
     private String scaler;
     private String currencyCode;
-    private double buyPrice;
-    private double sellPrice;
+    private Double buyPrice;
+    private Double sellPrice;
 
     public String getCurrencyName() {
         return currencyName;
@@ -40,21 +43,23 @@ public class TablePosition {
         this.currencyCode = currencyCode;
     }
 
-    public double getBuyPrice() {
+    public Double getBuyPrice() {
         return buyPrice;
     }
 
     @XmlElement( name = "kurs_kupna" )
-    public void setBuyPrice(double buyPrice) {
+    @XmlJavaTypeAdapter(value = DoubleAdapter.class)
+    public void setBuyPrice(Double buyPrice) {
         this.buyPrice = buyPrice;
     }
 
-    public double getSellPrice() {
+    public Double getSellPrice() {
         return sellPrice;
     }
 
     @XmlElement( name = "kurs_sprzedazy" )
-    public void setSellPrice(double sellPrice) {
+    @XmlJavaTypeAdapter(value = DoubleAdapter.class)
+    public void setSellPrice(Double sellPrice) {
         this.sellPrice = sellPrice;
     }
 }

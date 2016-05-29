@@ -21,6 +21,11 @@ public class MainClass {
         CurrencyCode currencyCode = parseCurrencyCode(args[0]);
         LocalDate startDate = parseDate(args[1]);
         LocalDate endDate = parseDate(args[2]);
+
+        if (currencyCode == null || startDate == null || endDate == null) {
+            return;
+        }
+
         System.out.println(currencyCode);
         System.out.println(startDate);
         System.out.println(endDate);
@@ -28,22 +33,22 @@ public class MainClass {
     }
 
     private static LocalDate parseDate(String dateString) {
+        LocalDate date = null;
         try {
-            return LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
+            date = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
         } catch (DateTimeParseException ex) {
             System.out.println(ex.getMessage());
         }
-        System.exit(0);
-        return null;
+        return date;
     }
 
     private static CurrencyCode parseCurrencyCode(String codeString) {
+        CurrencyCode code = null;
         try {
-            return CurrencyCode.valueOf(codeString);
+            code =  CurrencyCode.valueOf(codeString);
         } catch (IllegalArgumentException ex) {
             System.out.println("Unknown currency code: " + codeString);
         }
-        System.exit(0);
-        return null;
+        return code;
     }
 }

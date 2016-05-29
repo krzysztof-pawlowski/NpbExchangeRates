@@ -34,4 +34,12 @@ public class CurrencyRates {
         this.buyPrice = buyPrice;
         return this;
     }
+
+    @Override public String toString() {
+        return "CurrencyRates{" +
+            "currencyCode=" + currencyCode +
+            ", sellPrice=" + sellPrice +
+            ", buyPrice=" + buyPrice +
+            '}';
+    }
 }
