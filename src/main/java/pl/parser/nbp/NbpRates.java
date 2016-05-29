@@ -3,6 +3,7 @@ package pl.parser.nbp;
 import pl.parser.nbp.dto.CurrencyCode;
 import pl.parser.nbp.dto.CurrencyRates;
 import pl.parser.nbp.metrics.RatesMetric;
+import rx.Observable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,12 +13,12 @@ import java.util.List;
  */
 public class NbpRates {
 
-    public List<CurrencyRates> fetchRatesForPeriod(CurrencyCode currencyCode, LocalDate startDate, LocalDate endDate) {
+    public Observable<List<CurrencyRates>> fetchRatesForPeriod(CurrencyCode currencyCode, LocalDate startDate, LocalDate endDate) {
         return null;
     }
 
-    public double calculateMetric(List<CurrencyRates> rates, RatesMetric ratesMetric) {
-        return ratesMetric.calculate(rates);
+    public Observable<Double> calculateMetric(Observable<List<CurrencyRates>> rates, RatesMetric ratesMetric) {
+        return rates.map(ratesMetric::calculate);
     }
 
 }
