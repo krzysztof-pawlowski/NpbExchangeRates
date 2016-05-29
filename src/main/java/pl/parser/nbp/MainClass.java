@@ -1,11 +1,13 @@
 package pl.parser.nbp;
 
+import pl.parser.nbp.dto.CurrencyCode;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Created by Krzysztof on 28/05/16.
+ * Created by Krzysztof Pawlowski on 28/05/16.
  */
 public class MainClass {
 

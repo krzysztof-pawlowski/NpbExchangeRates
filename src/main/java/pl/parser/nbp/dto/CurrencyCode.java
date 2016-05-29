@@ -1,7 +1,7 @@
-package pl.parser.nbp;
+package pl.parser.nbp.dto;
 
 /**
- * Created by Krzysztof on 28/05/16.
+ * Created by Krzysztof Pawlowski on 28/05/16.
  */
 public enum CurrencyCode {
     USD("USD"),
