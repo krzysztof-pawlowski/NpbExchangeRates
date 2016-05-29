@@ -1,7 +1,5 @@
 package pl.parser.nbp.downloader;
 
-import org.assertj.core.data.MapEntry;
-import org.assertj.core.internal.cglib.util.ParallelSorter;
 import pl.parser.nbp.utils.LocalDateUtils;
 import rx.Observable;
 
@@ -46,7 +44,11 @@ public class RatesFilenamesProvider {
             .map(year -> getRatesFilenamesForYear(year, datesGroupedByYear.get(year), tableType))
             .collect(Collectors.toSet());
 
-        return Observable.merge(ratesFilenamesForYearsObservables);
+        return Observable.merge(ratesFilenamesForYearsObservables)
+            .toList()
+            .map(listOfLists -> listOfLists.stream()
+                .flatMap(filenamesList -> filenamesList.stream())
+                .collect(Collectors.toList()));
     }
 
     private Observable<List<String>> getRatesFilenamesForYear(int year, List<LocalDate> dates, TableType tableType) {
@@ -73,7 +75,7 @@ public class RatesFilenamesProvider {
         if (year == dateNow.getYear()) {
             return "dir.txt";
         }
-        return "/dir" + year + ".txt";
+        return "dir" + year + ".txt";
     }
 
 }
