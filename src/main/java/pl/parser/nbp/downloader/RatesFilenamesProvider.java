@@ -1,6 +1,7 @@
 package pl.parser.nbp.downloader;
 
 import org.assertj.core.data.MapEntry;
+import org.assertj.core.internal.cglib.util.ParallelSorter;
 import pl.parser.nbp.utils.LocalDateUtils;
 import rx.Observable;
 
@@ -17,14 +18,23 @@ import java.util.stream.Collectors;
  */
 public class RatesFilenamesProvider {
 
-    private static final String DIR_FILE_URL_PREFIX = "http://www.nbp.pl/kursy/xml/";
+    static final String DIR_FILE_URL_PREFIX = "http://www.nbp.pl/kursy/xml/";
 
     private AsyncHttpClient asyncHttpClient;
 
     public RatesFilenamesProvider() {
-        this.asyncHttpClient = new AsyncHttpClient(DIR_FILE_URL_PREFIX);
+        this(null);
     }
-    
+
+    public RatesFilenamesProvider(AsyncHttpClient asyncHttpClient) {
+        if (asyncHttpClient == null) {
+            this.asyncHttpClient = new AsyncHttpClient(DIR_FILE_URL_PREFIX);
+        }
+        else {
+            this.asyncHttpClient = asyncHttpClient;
+        }
+    }
+
     public Observable<List<String>> getRatesFilenames(LocalDate startDate, LocalDate endDate, TableType tableType) {
 
         List<LocalDate> datesInRange = LocalDateUtils.getDatesInRange(startDate, endDate);

@@ -1,7 +1,6 @@
 package pl.parser.nbp.downloader;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import org.apache.http.HttpResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -44,7 +43,7 @@ public class AsyncHttpClientTest {
     @Test
     public void performGetRequestTest() throws ExecutionException, InterruptedException {
         // WHEN
-        String response = asyncHttpClient.performGetRequest("/body").toBlocking().last();
+        String response = asyncHttpClient.performGetRequest("/body").toBlocking().single();
 
         // THEN
         assertThat(response).isEqualTo(responseBody);
