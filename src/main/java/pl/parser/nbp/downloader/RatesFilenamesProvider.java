@@ -21,16 +21,11 @@ public class RatesFilenamesProvider {
     private AsyncHttpClient asyncHttpClient;
 
     public RatesFilenamesProvider() {
-        this(null);
+        this(new AsyncHttpClient(DIR_FILE_URL_PREFIX));
     }
 
     public RatesFilenamesProvider(AsyncHttpClient asyncHttpClient) {
-        if (asyncHttpClient == null) {
-            this.asyncHttpClient = new AsyncHttpClient(DIR_FILE_URL_PREFIX);
-        }
-        else {
-            this.asyncHttpClient = asyncHttpClient;
-        }
+        this.asyncHttpClient = asyncHttpClient;
     }
 
     public Observable<List<String>> getRatesFilenames(LocalDate startDate, LocalDate endDate, TableType tableType) {
