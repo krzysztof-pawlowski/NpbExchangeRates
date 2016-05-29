@@ -48,8 +48,8 @@ public class RatesDownloaderTest {
         when(asyncHttpClient.performGetRequest("file1"))
             .thenReturn(Observable.just("<tabela_kursow typ=\"C\">\n"
                 + "<numer_tabeli>73/C/NBP/2007</numer_tabeli>\n"
-                + "<data_notowania>2007-04-12</data_notowania>\n"
-                + "<data_publikacji>2007-04-13</data_publikacji>\n"
+                + "<data_notowania>2007-04-11</data_notowania>\n"
+                + "<data_publikacji>2007-04-12</data_publikacji>\n"
                 + "<pozycja>\n"
                 + "<nazwa_waluty>dolar amerykański</nazwa_waluty>\n"
                 + "<przelicznik>1</przelicznik>\n"
@@ -96,9 +96,11 @@ public class RatesDownloaderTest {
         assertThat(currencyRates.get(0).getCurrencyCode()).isEqualTo(CurrencyCode.USD);
         assertThat(currencyRates.get(0).getBuyPrice()).isEqualTo(2.8210);
         assertThat(currencyRates.get(0).getSellPrice()).isEqualTo(2.8780);
+        assertThat(currencyRates.get(0).getPublicationDate()).isEqualTo(LocalDate.of(2007,4,12));
 
         assertThat(currencyRates.get(1).getCurrencyCode()).isEqualTo(CurrencyCode.USD);
         assertThat(currencyRates.get(1).getBuyPrice()).isEqualTo(2.3292);
         assertThat(currencyRates.get(1).getSellPrice()).isEqualTo(2.3762);
+        assertThat(currencyRates.get(1).getPublicationDate()).isEqualTo(LocalDate.of(2007,4,13));
     }
 }

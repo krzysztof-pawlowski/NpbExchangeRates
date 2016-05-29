@@ -1,5 +1,7 @@
 package pl.parser.nbp.dto;
 
+import java.time.LocalDate;
+
 /**
  * Created by Krzysztof Pawlowski on 28/05/16.
  */
@@ -7,6 +9,7 @@ public class CurrencyRates {
     private CurrencyCode currencyCode;
     private double sellPrice;
     private double buyPrice;
+    private LocalDate publicationDate;
 
     public CurrencyCode getCurrencyCode() {
         return currencyCode;
@@ -35,11 +38,21 @@ public class CurrencyRates {
         return this;
     }
 
+    public LocalDate getPublicationDate() {
+        return publicationDate;
+    }
+
+    public CurrencyRates setPublicationDate(LocalDate publicationDate) {
+        this.publicationDate = publicationDate;
+        return this;
+    }
+
     @Override public String toString() {
         return "CurrencyRates{" +
             "currencyCode=" + currencyCode +
             ", sellPrice=" + sellPrice +
             ", buyPrice=" + buyPrice +
+            ", publicationDate=" + publicationDate +
             '}';
     }
 }

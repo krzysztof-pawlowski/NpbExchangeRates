@@ -2,6 +2,7 @@ package pl.parser.nbp.downloader;
 
 import pl.parser.nbp.downloader.mapper.TablePositionMapper;
 import pl.parser.nbp.downloader.model.Table;
+import pl.parser.nbp.downloader.model.TablePosition;
 import pl.parser.nbp.dto.CurrencyCode;
 import pl.parser.nbp.dto.CurrencyRates;
 import rx.Observable;
@@ -50,10 +51,13 @@ public class RatesDownloader {
             .map(StringReader::new)
             .map(StreamSource::new)
             .map(this::unmarshallTable)
-            .map(table -> table.getPositions().stream()
-                .filter(tablePosition -> code.code().equals(tablePosition.getCurrencyCode()))
-                .findFirst().get())
-            .map(TablePositionMapper::map)
+            .map(table -> {
+                TablePosition position = table.getPositions().stream()
+                    .filter(tablePosition -> code.code().equals(tablePosition.getCurrencyCode()))
+                    .findFirst().get();
+                return position == null ? null : TablePositionMapper.map(position)
+                    .setPublicationDate(table.getPublicationDate());
+            })
             .toList();
 
     }
