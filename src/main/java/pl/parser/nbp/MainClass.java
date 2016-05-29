@@ -1,17 +1,22 @@
 package pl.parser.nbp;
 
 import pl.parser.nbp.dto.CurrencyCode;
+import pl.parser.nbp.dto.CurrencyRates;
+import pl.parser.nbp.metrics.AverageBuyPriceMetric;
+import rx.Observable;
 
+import javax.xml.bind.JAXBException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 /**
  * Created by Krzysztof Pawlowski on 28/05/16.
  */
 public class MainClass {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws JAXBException {
         if (args.length != 3) {
             System.out.println("Wrong argument count");
             System.out.println("Usage: java pl.parser.nbp.MainClass <currencyCode> <startDate> <endDate>");
@@ -26,9 +31,14 @@ public class MainClass {
             return;
         }
 
-        System.out.println(currencyCode);
-        System.out.println(startDate);
-        System.out.println(endDate);
+        NbpRates nbpRates = new NbpRates();
+        Observable<List<CurrencyRates>> currencyRatesObservable = nbpRates
+            .fetchRatesForPeriod(currencyCode, startDate, endDate).cache();
+
+        double d = nbpRates.calculateMetric(currencyRatesObservable, new AverageBuyPriceMetric())
+            .toBlocking().single();
+
+        System.out.println(d);
 
     }
 

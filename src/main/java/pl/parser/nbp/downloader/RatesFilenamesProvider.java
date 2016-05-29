@@ -6,6 +6,7 @@ import rx.Observable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  */
 public class RatesFilenamesProvider {
 
-    static final String DIR_FILE_URL_PREFIX = "http://www.nbp.pl/kursy/xml/";
+    static final String DIR_FILE_URL_PREFIX = "www.nbp.pl";
 
     private AsyncHttpClient asyncHttpClient;
 
@@ -42,7 +43,7 @@ public class RatesFilenamesProvider {
         return Observable.merge(ratesFilenamesForYearsObservables)
             .toList()
             .map(listOfLists -> listOfLists.stream()
-                .flatMap(filenamesList -> filenamesList.stream())
+                .flatMap(Collection::stream)
                 .collect(Collectors.toList()));
     }
 
@@ -56,7 +57,7 @@ public class RatesFilenamesProvider {
             .collect(Collectors.toSet());
 
         return asyncHttpClient.performGetRequest(dirFileName)
-            .map(dirFile -> Arrays.asList(dirFile.split("\n")))
+            .map(dirFile -> Arrays.asList(dirFile.split("\r\n")))
             .map(filenames -> filenames.stream()
                     .filter(filename -> filename.startsWith(tableType.value()))
                     .collect(Collectors.toList()))
@@ -68,9 +69,9 @@ public class RatesFilenamesProvider {
     private String getDirFilename(int year) {
         LocalDate dateNow = LocalDate.now();
         if (year == dateNow.getYear()) {
-            return "dir.txt";
+            return "/kursy/xml/dir.txt";
         }
-        return "dir" + year + ".txt";
+        return "/kursy/xml/dir" + year + ".txt";
     }
 
 }

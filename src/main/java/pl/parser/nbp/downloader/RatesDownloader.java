@@ -20,7 +20,9 @@ import java.util.List;
  */
 public class RatesDownloader {
 
-    static final String RATES_FILE_URL_PREFIX = "http://www.nbp.pl/kursy/xml/";
+    public static final String UTF8_BOM = "\uFEFF";
+
+    static final String RATES_FILE_URL_PREFIX = "www.nbp.pl";
 
     private AsyncHttpClient asyncHttpClient;
     private RatesFilenamesProvider ratesFilenamesProvider;
@@ -47,7 +49,7 @@ public class RatesDownloader {
 
         return ratesFilenamesProvider.getRatesFilenames(startDate, endDate, tableType)
             .flatMapIterable(filenames -> filenames)
-            .flatMap(filename -> asyncHttpClient.performGetRequest(filename))
+            .flatMap(filename -> asyncHttpClient.performGetRequest("/kursy/xml/" + filename + ".xml"))
             .map(StringReader::new)
             .map(StreamSource::new)
             .map(this::unmarshallTable)
