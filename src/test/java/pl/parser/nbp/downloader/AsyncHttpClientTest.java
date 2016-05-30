@@ -36,7 +36,7 @@ public class AsyncHttpClientTest {
     }
 
     @Test
-    public void performGetRequestTest() throws ExecutionException, InterruptedException {
+    public void performGetRequestShouldReturnBody() throws ExecutionException, InterruptedException {
         // WHEN
         String response = asyncHttpClient.performGetRequest("/body").toBlocking().single();
 

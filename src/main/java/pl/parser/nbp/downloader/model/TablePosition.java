@@ -21,8 +21,9 @@ public class TablePosition {
     }
 
     @XmlElement( name = "nazwa_waluty" )
-    public void setCurrencyName(String currencyName) {
+    public TablePosition setCurrencyName(String currencyName) {
         this.currencyName = currencyName;
+        return this;
     }
 
     public String getScaler() {
@@ -30,8 +31,9 @@ public class TablePosition {
     }
 
     @XmlElement( name = "przelicznik" )
-    public void setScaler(String scaler) {
+    public TablePosition setScaler(String scaler) {
         this.scaler = scaler;
+        return this;
     }
 
     public String getCurrencyCode() {
@@ -39,8 +41,9 @@ public class TablePosition {
     }
 
     @XmlElement( name = "kod_waluty" )
-    public void setCurrencyCode(String currencyCode) {
+    public TablePosition setCurrencyCode(String currencyCode) {
         this.currencyCode = currencyCode;
+        return this;
     }
 
     public Double getBuyPrice() {
@@ -49,8 +52,9 @@ public class TablePosition {
 
     @XmlElement( name = "kurs_kupna" )
     @XmlJavaTypeAdapter(value = DoubleAdapter.class)
-    public void setBuyPrice(Double buyPrice) {
+    public TablePosition setBuyPrice(Double buyPrice) {
         this.buyPrice = buyPrice;
+        return this;
     }
 
     public Double getSellPrice() {
@@ -59,7 +63,8 @@ public class TablePosition {
 
     @XmlElement( name = "kurs_sprzedazy" )
     @XmlJavaTypeAdapter(value = DoubleAdapter.class)
-    public void setSellPrice(Double sellPrice) {
+    public TablePosition setSellPrice(Double sellPrice) {
         this.sellPrice = sellPrice;
+        return this;
     }
 }

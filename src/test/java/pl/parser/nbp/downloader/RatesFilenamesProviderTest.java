@@ -50,7 +50,7 @@ public class RatesFilenamesProviderTest {
     }
 
     @Test
-    public void getRatesFilenamesFromCurrentYearTest() {
+    public void getRatesFilenamesFromCurrentYearShouldGetResultsFromDirFileWithoutYearInName() {
         // GIVEN
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YY");
@@ -76,7 +76,7 @@ public class RatesFilenamesProviderTest {
     }
 
     @Test
-    public void getRatesFilenamesFromPreviousYearTest() {
+    public void getRatesFilenamesFromPreviousYearShouldGetResultsFromDirFileWithYearInName() {
         // GIVEN
         String yearStr = "15";
         responseBodyDirTxt = responseBodyDirTxt.replace("YY", yearStr);
@@ -99,7 +99,7 @@ public class RatesFilenamesProviderTest {
     }
 
     @Test
-    public void getRatesFilenamesFromTwoYearsTest() {
+    public void getRatesFilenamesFromTwoYearsShouldLookForTwoFilesAndMergeResultsFromThem() {
         // GIVEN
         String responseBody2014 = "c251z141230\r\n"
             + "h251z141230\r\n"

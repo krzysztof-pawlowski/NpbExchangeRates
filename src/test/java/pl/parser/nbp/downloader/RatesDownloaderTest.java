@@ -10,7 +10,6 @@ import pl.parser.nbp.dto.CurrencyRates;
 import pl.parser.nbp.http.AsyncHttpClient;
 import rx.Observable;
 
-import javax.xml.bind.JAXBException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -34,12 +33,12 @@ public class RatesDownloaderTest {
     private RatesDownloader ratesDownloader;
 
     @Before
-    public void before() throws JAXBException {
+    public void before() {
         this.ratesDownloader = new RatesDownloader(asyncHttpClient, ratesFilenamesProvider);
     }
 
     @Test
-    public void getCurrencyRatesTest() {
+    public void getCurrencyRatesShouldReturnEntityWithAllFieldsFilled() {
         // GIVEN
         LocalDate date = LocalDate.now();
 
