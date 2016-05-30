@@ -1,5 +1,6 @@
 package pl.parser.nbp.downloader;
 
+import pl.parser.nbp.http.AsyncHttpClient;
 import pl.parser.nbp.utils.LocalDateUtils;
 import rx.Observable;
 
@@ -17,13 +18,7 @@ import java.util.stream.Collectors;
  */
 public class RatesFilenamesProvider {
 
-    static final String DIR_FILE_URL_PREFIX = "www.nbp.pl";
-
     private AsyncHttpClient asyncHttpClient;
-
-    public RatesFilenamesProvider() {
-        this(new AsyncHttpClient(DIR_FILE_URL_PREFIX));
-    }
 
     public RatesFilenamesProvider(AsyncHttpClient asyncHttpClient) {
         this.asyncHttpClient = asyncHttpClient;

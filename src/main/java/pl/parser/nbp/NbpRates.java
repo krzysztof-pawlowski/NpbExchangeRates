@@ -1,9 +1,11 @@
 package pl.parser.nbp;
 
 import pl.parser.nbp.downloader.RatesDownloader;
+import pl.parser.nbp.downloader.RatesFilenamesProvider;
 import pl.parser.nbp.downloader.TableType;
 import pl.parser.nbp.dto.CurrencyCode;
 import pl.parser.nbp.dto.CurrencyRates;
+import pl.parser.nbp.http.AsyncHttpClient;
 import pl.parser.nbp.metrics.RatesMetric;
 import rx.Observable;
 
@@ -16,14 +18,19 @@ import java.util.List;
  */
 public class NbpRates {
 
-    private RatesDownloader ratesDownloader;
-
-    public NbpRates() {
-        this.ratesDownloader = new RatesDownloader();
-    }
+    static final String NBP_RATES_HOST = "www.nbp.pl";
 
     public Observable<List<CurrencyRates>> fetchRatesForPeriod(CurrencyCode currencyCode, LocalDate startDate, LocalDate endDate) {
-        return ratesDownloader.getCurrencyRates(startDate, endDate, currencyCode, TableType.BUY_SELL_RATES);
+
+        AsyncHttpClient asyncHttpClient = new AsyncHttpClient(NBP_RATES_HOST);
+        RatesFilenamesProvider ratesFilenamesProvider = new RatesFilenamesProvider(asyncHttpClient);
+        RatesDownloader ratesDownloader = new RatesDownloader(asyncHttpClient, ratesFilenamesProvider);
+
+        return ratesDownloader.getCurrencyRates(startDate, endDate, currencyCode, TableType.BUY_SELL_RATES)
+            .map(currencyRates -> {
+                asyncHttpClient.close();
+                return currencyRates;
+            });
     }
 
     public Observable<Double> calculateMetric(Observable<List<CurrencyRates>> rates, RatesMetric ratesMetric) {

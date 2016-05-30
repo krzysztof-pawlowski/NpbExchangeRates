@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import pl.parser.nbp.http.AsyncHttpClient;
 import rx.Observable;
 
 import java.time.LocalDate;

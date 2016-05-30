@@ -5,6 +5,7 @@ import pl.parser.nbp.downloader.model.Table;
 import pl.parser.nbp.downloader.model.TablePosition;
 import pl.parser.nbp.dto.CurrencyCode;
 import pl.parser.nbp.dto.CurrencyRates;
+import pl.parser.nbp.http.AsyncHttpClient;
 import rx.Observable;
 
 import javax.xml.bind.JAXBContext;
@@ -20,20 +21,12 @@ import java.util.List;
  */
 public class RatesDownloader {
 
-    public static final String UTF8_BOM = "\uFEFF";
-
-    static final String RATES_FILE_URL_PREFIX = "www.nbp.pl";
 
     private AsyncHttpClient asyncHttpClient;
     private RatesFilenamesProvider ratesFilenamesProvider;
 
 
     private static final Unmarshaller tableXmlbUnmarshaller = initUnmarshaller();
-
-    public RatesDownloader() {
-        this(new AsyncHttpClient(RATES_FILE_URL_PREFIX),
-            new RatesFilenamesProvider());
-    }
 
     public RatesDownloader(AsyncHttpClient asyncHttpClient, RatesFilenamesProvider ratesFilenamesProvider) {
         this.asyncHttpClient = asyncHttpClient;

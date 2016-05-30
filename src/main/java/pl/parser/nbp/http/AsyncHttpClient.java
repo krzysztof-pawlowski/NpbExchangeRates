@@ -1,4 +1,4 @@
-package pl.parser.nbp.downloader;
+package pl.parser.nbp.http;
 
 import io.netty.buffer.ByteBuf;
 import io.reactivex.netty.RxNetty;
@@ -30,5 +30,9 @@ public class AsyncHttpClient {
             .createGet(path))
             .flatMap(byteBufHttpClientResponse -> byteBufHttpClientResponse.getContent())
             .map(byteBuf -> byteBuf.toString(StandardCharsets.UTF_8));
+    }
+
+    public void close() {
+        httpClient.shutdown();
     }
 }

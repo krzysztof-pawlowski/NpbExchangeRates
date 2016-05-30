@@ -1,10 +1,10 @@
 package pl.parser.nbp.downloader;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import pl.parser.nbp.http.AsyncHttpClient;
 
 import java.util.concurrent.ExecutionException;
 

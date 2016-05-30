@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import pl.parser.nbp.dto.CurrencyCode;
 import pl.parser.nbp.dto.CurrencyRates;
+import pl.parser.nbp.http.AsyncHttpClient;
 import rx.Observable;
 
 import javax.xml.bind.JAXBException;
