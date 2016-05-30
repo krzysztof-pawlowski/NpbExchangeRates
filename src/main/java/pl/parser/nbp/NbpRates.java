@@ -18,7 +18,7 @@ public class NbpRates {
 
     private RatesDownloader ratesDownloader;
 
-    public NbpRates() throws JAXBException {
+    public NbpRates() {
         this.ratesDownloader = new RatesDownloader();
     }
 

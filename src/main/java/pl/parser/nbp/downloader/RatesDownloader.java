@@ -27,21 +27,17 @@ public class RatesDownloader {
     private AsyncHttpClient asyncHttpClient;
     private RatesFilenamesProvider ratesFilenamesProvider;
 
-    private Unmarshaller tableXmlbUnmarshaller;
 
+    private static final Unmarshaller tableXmlbUnmarshaller = initUnmarshaller();
 
-    public RatesDownloader() throws JAXBException {
+    public RatesDownloader() {
         this(new AsyncHttpClient(RATES_FILE_URL_PREFIX),
             new RatesFilenamesProvider());
     }
 
-    public RatesDownloader(AsyncHttpClient asyncHttpClient, RatesFilenamesProvider ratesFilenamesProvider)
-        throws JAXBException {
+    public RatesDownloader(AsyncHttpClient asyncHttpClient, RatesFilenamesProvider ratesFilenamesProvider) {
         this.asyncHttpClient = asyncHttpClient;
         this.ratesFilenamesProvider = ratesFilenamesProvider;
-
-        JAXBContext jaxbContext = JAXBContext.newInstance(Table.class);
-        tableXmlbUnmarshaller = jaxbContext.createUnmarshaller();
     }
 
     public Observable<List<CurrencyRates>> getCurrencyRates(LocalDate startDate, LocalDate endDate, CurrencyCode code,
@@ -72,5 +68,14 @@ public class RatesDownloader {
             throw new RuntimeException("Failed to parse xml.", ex);
         }
         return table;
+    }
+
+    private static Unmarshaller initUnmarshaller() {
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(Table.class);
+            return jaxbContext.createUnmarshaller();
+        } catch (JAXBException e) {
+            throw new RuntimeException("Could not init JAXB context.");
+        }
     }
 }

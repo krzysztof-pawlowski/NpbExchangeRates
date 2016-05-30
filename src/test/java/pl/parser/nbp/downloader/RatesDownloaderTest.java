@@ -45,7 +45,7 @@ public class RatesDownloaderTest {
         when(ratesFilenamesProvider.getRatesFilenames(any(), any(), any()))
             .thenReturn(Observable.just(Arrays.asList("file1", "file2")));
 
-        when(asyncHttpClient.performGetRequest("file1"))
+        when(asyncHttpClient.performGetRequest("/kursy/xml/file1.xml"))
             .thenReturn(Observable.just("<tabela_kursow typ=\"C\">\n"
                 + "<numer_tabeli>73/C/NBP/2007</numer_tabeli>\n"
                 + "<data_notowania>2007-04-11</data_notowania>\n"
@@ -66,7 +66,7 @@ public class RatesDownloaderTest {
                 + "</pozycja>\n"
                 + "</tabela_kursow>"));
 
-        when(asyncHttpClient.performGetRequest("file2"))
+        when(asyncHttpClient.performGetRequest("/kursy/xml/file2.xml"))
             .thenReturn(Observable.just("<tabela_kursow typ=\"C\">\n"
                 + "<numer_tabeli>73/C/NBP/2007</numer_tabeli>\n"
                 + "<data_notowania>2007-04-12</data_notowania>\n"

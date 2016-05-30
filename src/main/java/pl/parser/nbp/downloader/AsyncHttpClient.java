@@ -31,8 +31,4 @@ public class AsyncHttpClient {
             .flatMap(byteBufHttpClientResponse -> byteBufHttpClientResponse.getContent())
             .map(byteBuf -> byteBuf.toString(StandardCharsets.UTF_8));
     }
-
-    public void close() {
-        httpClient.shutdown();
-    }
 }

@@ -35,11 +35,6 @@ public class AsyncHttpClientTest {
                 .withBody(responseBody)));
     }
 
-    @After
-    public void after() {
-        asyncHttpClient.close();
-    }
-
     @Test
     public void performGetRequestTest() throws ExecutionException, InterruptedException {
         // WHEN

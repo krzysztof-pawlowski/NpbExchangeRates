@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class MainClass {
 
-    public static void main(String[] args) throws JAXBException {
+    public static void main(String[] args) {
         if (args.length != 3) {
             System.out.println("Wrong argument count");
             System.out.println("Usage: java pl.parser.nbp.MainClass <currencyCode> <startDate> <endDate>");
