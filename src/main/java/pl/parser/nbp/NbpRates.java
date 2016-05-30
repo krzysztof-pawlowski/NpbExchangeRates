@@ -18,19 +18,14 @@ import java.util.List;
  */
 public class NbpRates {
 
-    static final String NBP_RATES_HOST = "www.nbp.pl";
+    private RatesDownloader ratesDownloader;
+
+    public NbpRates(RatesDownloader ratesDownloader) {
+        this.ratesDownloader = ratesDownloader;
+    }
 
     public Observable<List<CurrencyRates>> fetchRatesForPeriod(CurrencyCode currencyCode, LocalDate startDate, LocalDate endDate) {
-
-        AsyncHttpClient asyncHttpClient = new AsyncHttpClient(NBP_RATES_HOST);
-        RatesFilenamesProvider ratesFilenamesProvider = new RatesFilenamesProvider(asyncHttpClient);
-        RatesDownloader ratesDownloader = new RatesDownloader(asyncHttpClient, ratesFilenamesProvider);
-
-        return ratesDownloader.getCurrencyRates(startDate, endDate, currencyCode, TableType.BUY_SELL_RATES)
-            .map(currencyRates -> {
-                asyncHttpClient.close();
-                return currencyRates;
-            });
+        return ratesDownloader.getCurrencyRates(startDate, endDate, currencyCode, TableType.BUY_SELL_RATES);
     }
 
     public Observable<Double> calculateMetric(Observable<List<CurrencyRates>> rates, RatesMetric ratesMetric) {
