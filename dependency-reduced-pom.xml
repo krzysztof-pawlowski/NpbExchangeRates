@@ -34,5 +34,67 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>javadoc</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.10.3</version>
+            <executions>
+              <execution>
+                <id>javadocs-dist</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>aggregate-jar</goal>
+                </goals>
+                <configuration>
+                  <aggregate>true</aggregate>
+                  <show>private</show>
+                  <nohelp>true</nohelp>
+                  <failOnError>false</failOnError>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>findbugs</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>findbugs-maven-plugin</artifactId>
+            <version>${findbugs.version}</version>
+            <executions>
+              <execution>
+                <id>analyze-compile</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>check</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <effort>max</effort>
+              <failOnError>true</failOnError>
+              <threshold>max</threshold>
+              <xmlOutput>true</xmlOutput>
+              <findbugsXmlOutput>true</findbugsXmlOutput>
+              <findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
+              <skipEmptyReport>true</skipEmptyReport>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+  <properties>
+    <findbugs.version>3.0.1</findbugs.version>
+    <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
+  </properties>
 </project>
 

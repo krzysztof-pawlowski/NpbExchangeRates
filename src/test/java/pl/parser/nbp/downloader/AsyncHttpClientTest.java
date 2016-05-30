@@ -1,6 +1,7 @@
 package pl.parser.nbp.downloader;
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -33,6 +34,11 @@ public class AsyncHttpClientTest {
         stubFor(get(urlEqualTo("/body"))
             .willReturn(aResponse()
                 .withBody(responseBody)));
+    }
+
+    @After
+    public void after() {
+        asyncHttpClient.close();
     }
 
     @Test
