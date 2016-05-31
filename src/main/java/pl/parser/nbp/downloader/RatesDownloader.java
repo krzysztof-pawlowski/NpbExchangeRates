@@ -17,6 +17,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.StringReader;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class responsible for downloading the rates from the server.
@@ -65,14 +66,22 @@ public class RatesDownloader {
             .map(StringReader::new)
             .map(StreamSource::new)
             .map(this::unmarshallTable)
+            .onErrorResumeNext(throwable -> {
+                logger.error("Failed to fetch data: " + throwable.getMessage());
+                return Observable.just(null);
+            })
             .map(table -> {
+                if (table == null) return null;
                 TablePosition position = table.getPositions().stream()
                     .filter(tablePosition -> code.code().equals(tablePosition.getCurrencyCode()))
                     .findFirst().get();
                 return position == null ? null : TablePositionMapper.map(position)
                     .setPublicationDate(table.getPublicationDate());
             })
-            .toList();
+            .toList()
+            .map(list -> list.stream()
+                .filter(currencyRates -> currencyRates != null)
+                .collect(Collectors.toList()));
 
     }
 
@@ -81,7 +90,7 @@ public class RatesDownloader {
         try {
             table = tableXmlbUnmarshaller.unmarshal(tableXml, Table.class).getValue();
         } catch (JAXBException ex) {
-            throw new RuntimeException("Failed to parse xml.", ex);
+            throw new RuntimeException("Failed to parse xml", ex);
         }
         return table;
     }
