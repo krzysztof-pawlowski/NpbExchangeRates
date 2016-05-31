@@ -62,7 +62,11 @@ public class RatesDownloader {
                 return filenames;
             })
             .flatMapIterable(filenames -> filenames)
-            .flatMap(filename -> asyncHttpClient.performGetRequest(PATH_PREFIX + filename + RATES_FILE_EXTENSION))
+            .flatMap(filename -> asyncHttpClient.performGetRequest(PATH_PREFIX + filename + RATES_FILE_EXTENSION)
+                .map(response -> {
+                    logger.debug("Fetching file: " + filename);
+                    return response;
+                }))
             .map(StringReader::new)
             .map(StreamSource::new)
             .map(this::unmarshallTable)
