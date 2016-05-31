@@ -1,5 +1,7 @@
 package pl.parser.nbp.downloader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.parser.nbp.http.AsyncHttpClient;
 import pl.parser.nbp.utils.LocalDateUtils;
 import rx.Observable;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
  */
 public class RatesFilenamesProvider {
 
+    final static Logger logger = LoggerFactory.getLogger(RatesFilenamesProvider.class);
+
     private AsyncHttpClient asyncHttpClient;
 
     /**
@@ -29,6 +33,8 @@ public class RatesFilenamesProvider {
     }
 
     public Observable<List<String>> getRatesFilenames(LocalDate startDate, LocalDate endDate, TableType tableType) {
+
+        logger.debug("Getting rates filenames for table {} from {} to {}.", tableType, startDate, endDate);
 
         List<LocalDate> datesInRange = LocalDateUtils.getDatesInRange(startDate, endDate);
 

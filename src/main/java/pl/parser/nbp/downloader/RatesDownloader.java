@@ -1,5 +1,7 @@
 package pl.parser.nbp.downloader;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.parser.nbp.downloader.mapper.TablePositionMapper;
 import pl.parser.nbp.downloader.model.Table;
 import pl.parser.nbp.downloader.model.TablePosition;
@@ -21,6 +23,10 @@ import java.util.List;
  */
 public class RatesDownloader {
 
+    static final String PATH_PREFIX = "/kursy/xml/";
+    static final String RATES_FILE_EXTENSION = ".xml";
+
+    final static Logger logger = LoggerFactory.getLogger(RatesDownloader.class);
 
     private AsyncHttpClient asyncHttpClient;
     private RatesFilenamesProvider ratesFilenamesProvider;
@@ -29,7 +35,7 @@ public class RatesDownloader {
     private static final Unmarshaller tableXmlbUnmarshaller = initUnmarshaller();
 
     /**
-     * The constructor
+     * The constructor.
      * @param asyncHttpClient http client used to fetch the rates
      * @param ratesFilenamesProvider provider of rates filenames on the server
      */
@@ -39,7 +45,7 @@ public class RatesDownloader {
     }
 
     /**
-     * Gets a list of currency rates
+     * Gets a list of currency rates.
      * @param startDate start date of rates period (inclusive)
      * @param endDate end date of rates period (inclusive)
      * @param code currency code
@@ -50,8 +56,12 @@ public class RatesDownloader {
         TableType tableType) {
 
         return ratesFilenamesProvider.getRatesFilenames(startDate, endDate, tableType)
+            .map(filenames -> {
+                logger.debug("Fetching rates from table {} from {} to {}", tableType, startDate, endDate);
+                return filenames;
+            })
             .flatMapIterable(filenames -> filenames)
-            .flatMap(filename -> asyncHttpClient.performGetRequest("/kursy/xml/" + filename + ".xml"))
+            .flatMap(filename -> asyncHttpClient.performGetRequest(PATH_PREFIX + filename + RATES_FILE_EXTENSION))
             .map(StringReader::new)
             .map(StreamSource::new)
             .map(this::unmarshallTable)
@@ -80,8 +90,8 @@ public class RatesDownloader {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Table.class);
             return jaxbContext.createUnmarshaller();
-        } catch (JAXBException e) {
-            throw new RuntimeException("Could not init JAXB context.");
+        } catch (JAXBException ex) {
+            throw new RuntimeException("Could not init JAXB context.", ex);
         }
     }
 }
