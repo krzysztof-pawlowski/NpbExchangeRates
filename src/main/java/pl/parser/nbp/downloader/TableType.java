@@ -1,7 +1,7 @@
 package pl.parser.nbp.downloader;
 
 /**
- * Created by Krzysztof Pawlowski on 28/05/16.
+ * Table type - value is the name of the table in the NBP rates.
  */
 public enum TableType {
     BUY_SELL_RATES("c");

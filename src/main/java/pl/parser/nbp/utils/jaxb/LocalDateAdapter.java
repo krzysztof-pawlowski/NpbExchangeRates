@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDate;
 
 /**
- * Created by Krzysztof Pawlowski on 29/05/16.
+ * LocalDate adapter for JAXB.
  */
 public class LocalDateAdapter extends XmlAdapter<String, LocalDate> {
     public LocalDate unmarshal(String v) throws Exception {

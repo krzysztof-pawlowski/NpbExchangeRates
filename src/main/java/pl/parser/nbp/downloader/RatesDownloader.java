@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Created by Krzysztof Pawlowski on 28/05/16.
+ * Class responsible for downloading the rates from the server.
  */
 public class RatesDownloader {
 
@@ -28,11 +28,24 @@ public class RatesDownloader {
 
     private static final Unmarshaller tableXmlbUnmarshaller = initUnmarshaller();
 
+    /**
+     * The constructor
+     * @param asyncHttpClient http client used to fetch the rates
+     * @param ratesFilenamesProvider provider of rates filenames on the server
+     */
     public RatesDownloader(AsyncHttpClient asyncHttpClient, RatesFilenamesProvider ratesFilenamesProvider) {
         this.asyncHttpClient = asyncHttpClient;
         this.ratesFilenamesProvider = ratesFilenamesProvider;
     }
 
+    /**
+     * Gets a list of currency rates
+     * @param startDate start date of rates period (inclusive)
+     * @param endDate end date of rates period (inclusive)
+     * @param code currency code
+     * @param tableType rates table type
+     * @return Observable of list of currency rates
+     */
     public Observable<List<CurrencyRates>> getCurrencyRates(LocalDate startDate, LocalDate endDate, CurrencyCode code,
         TableType tableType) {
 

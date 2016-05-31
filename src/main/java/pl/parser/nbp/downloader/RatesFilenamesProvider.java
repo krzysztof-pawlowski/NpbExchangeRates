@@ -14,12 +14,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Created by Krzysztof Pawlowski on 28/05/16.
+ * Class responsible for providing rates filenames on the server
  */
 public class RatesFilenamesProvider {
 
     private AsyncHttpClient asyncHttpClient;
 
+    /**
+     * The constructor
+     * @param asyncHttpClient http client used to fetch the rates filenames
+     */
     public RatesFilenamesProvider(AsyncHttpClient asyncHttpClient) {
         this.asyncHttpClient = asyncHttpClient;
     }

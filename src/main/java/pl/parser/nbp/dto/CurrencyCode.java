@@ -1,7 +1,7 @@
 package pl.parser.nbp.dto;
 
 /**
- * Created by Krzysztof Pawlowski on 28/05/16.
+ * Currency code - value is a string representation of the code
  */
 public enum CurrencyCode {
     USD("USD"),

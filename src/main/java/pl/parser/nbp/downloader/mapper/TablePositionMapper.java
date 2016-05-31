@@ -6,8 +6,6 @@ import pl.parser.nbp.dto.CurrencyRates;
 
 /**
  * Mapper from @TablePosition to @CurrencyRates
- *
- * Created by Krzysztof Pawlowski on 29/05/16.
  */
 public class TablePositionMapper {
 

@@ -5,7 +5,7 @@ import pl.parser.nbp.dto.CurrencyRates;
 import java.util.List;
 
 /**
- * Created by Krzysztof Pawlowski on 29/05/16.
+ * Metric calculating average buy price of the list of currency rates.
  */
 public class AverageBuyPriceMetric implements RatesMetric {
     @Override public double calculate(List<CurrencyRates> rates) {

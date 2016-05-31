@@ -14,20 +14,37 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Created by Krzysztof Pawlowski on 28/05/16.
+ * Facade for getting the rates and calculating the metrics.
  */
 public class NbpRates {
 
     private RatesDownloader ratesDownloader;
 
+    /**
+     * The constructor
+     * @param ratesDownloader rates downloader
+     */
     public NbpRates(RatesDownloader ratesDownloader) {
         this.ratesDownloader = ratesDownloader;
     }
 
+    /**
+     * Fetches the rates for the period given.
+     * @param currencyCode currency code
+     * @param startDate start date (inclusive) of the range
+     * @param endDate end date (inclusive) of the range
+     * @return list fo currency rates
+     */
     public Observable<List<CurrencyRates>> fetchRatesForPeriod(CurrencyCode currencyCode, LocalDate startDate, LocalDate endDate) {
         return ratesDownloader.getCurrencyRates(startDate, endDate, currencyCode, TableType.BUY_SELL_RATES);
     }
 
+    /**
+     * Calculates the metric given for the list of currency rates.
+     * @param rates list of currency rates
+     * @param ratesMetric currency rates metric
+     * @return metric value
+     */
     public Observable<Double> calculateMetric(Observable<List<CurrencyRates>> rates, RatesMetric ratesMetric) {
         return rates.map(ratesMetric::calculate);
     }

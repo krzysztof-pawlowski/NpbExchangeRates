@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 
 /**
- * Created by Krzysztof Pawlowski on 29/05/16.
+ * Metric calculating standard deviation of sell price of the list of currency rates.
  */
 public class StandardDeviationSellPriceMetric implements RatesMetric {
     @Override public double calculate(List<CurrencyRates> rates) {

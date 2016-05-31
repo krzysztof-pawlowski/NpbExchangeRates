@@ -5,8 +5,14 @@ import pl.parser.nbp.dto.CurrencyRates;
 import java.util.List;
 
 /**
- * Created by Krzysztof Pawlowski on 28/05/16.
+ * Interface for metrics giving scalar result on the list of the currency rates
  */
 public interface RatesMetric {
+
+    /**
+     * Calculates the metric value.
+     * @param rates list of currency rates
+     * @return metric result
+     */
     double calculate(List<CurrencyRates> rates);
 }

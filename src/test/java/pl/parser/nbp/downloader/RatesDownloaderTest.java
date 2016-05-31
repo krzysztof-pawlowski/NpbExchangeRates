@@ -18,9 +18,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by Krzysztof Pawlowski on 29/05/16.
- */
 @RunWith(MockitoJUnitRunner.class)
 public class RatesDownloaderTest {
 

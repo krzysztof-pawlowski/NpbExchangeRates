@@ -5,10 +5,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by Krzysztof Pawlowski on 29/05/16.
+ * Utils class for LocalDate.
  */
 public class LocalDateUtils {
 
+    /**
+     * Get all the dates in the range.
+     * @param startDate start date (inclusive) of the range
+     * @param endDate end date (inclusive) of the range
+     * @return list of dates
+     */
     public static List<LocalDate> getDatesInRange(LocalDate startDate, LocalDate endDate) {
         List<LocalDate> datesInRange = new LinkedList<>();
         LocalDate date = startDate;
