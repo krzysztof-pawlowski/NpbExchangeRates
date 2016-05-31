@@ -9,7 +9,6 @@ import pl.parser.nbp.metrics.AverageBuyPriceMetric;
 import pl.parser.nbp.metrics.StandardDeviationSellPriceMetric;
 import rx.Observable;
 
-import javax.xml.bind.JAXBException;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -1,15 +1,12 @@
 package pl.parser.nbp;
 
 import pl.parser.nbp.downloader.RatesDownloader;
-import pl.parser.nbp.downloader.RatesFilenamesProvider;
 import pl.parser.nbp.downloader.TableType;
 import pl.parser.nbp.dto.CurrencyCode;
 import pl.parser.nbp.dto.CurrencyRates;
-import pl.parser.nbp.http.AsyncHttpClient;
 import pl.parser.nbp.metrics.RatesMetric;
 import rx.Observable;
 
-import javax.xml.bind.JAXBException;
 import java.time.LocalDate;
 import java.util.List;
 

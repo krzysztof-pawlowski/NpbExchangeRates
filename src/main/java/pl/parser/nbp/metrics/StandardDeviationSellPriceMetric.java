@@ -6,7 +6,6 @@ import pl.parser.nbp.dto.CurrencyRates;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 
 /**
  * Metric calculating standard deviation of sell price of the list of currency rates.
