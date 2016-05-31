@@ -11,6 +11,10 @@ mvn clean package
 ```
 As the result fatjar `nbp-exchange-rates-1.0-SNAPSHOT.jar` is generated in `target/` folder.
 
+There are two mvn profiles defined:
+* findbugs - to run static code analysis
+* javadoc - to generate javadoc documentation for the project
+
 ## How to run
 To run the application execute:
 ```
